@@ -7,7 +7,7 @@ if (document.location.search.match(/type=embed/gi)) {
 
 
   $(document).ready( function() {
-          
+    console.log('In document ready')      
     setTimeout(display,10000)
   })
 
@@ -41,22 +41,32 @@ if (document.location.search.match(/type=embed/gi)) {
 
   
   $.post('/game',{answer:answer})
+  
   $.ajax({
       url:"/game",
       type:"GET",
+      cache: false
   }).done(function (result){
-      console.log(result)
+      console.log('In done')
       renderFunction(result)
+  
   }).fail(function(err){
-      console.log(err)
+      console.log('Error occured')
   })
+  console.log('After AJAX')
   //renderQuestion()
    
   }
   var renderFunction = function(result){
+     console.log('In render function')
       var set= document.getElementById('set')
       set.innerHTML=result
-         
+
+      initializeClock('box', new Date(Date.parse(new Date()) + qTime()*1000));
+      quiz.style.display = "block";
+      renderCounter();
+      //TIMER = setInterval(renderCounter,1000);   
+
       setTimeout(display,10000)
   }
 
@@ -102,7 +112,7 @@ let TIMER;
 
 function qTime()
 {   
-    var time=10 
+    var time=9
     
     // fetch('/time').then((response)=>{
 
@@ -124,11 +134,13 @@ function getTimeRemaining(endtime) {
     }
     
     function initializeClock(id, endtime) {
+      
     var clock = document.getElementById(id);
     var mSpan = clock.querySelector('.minutes');
     var sSpan = clock.querySelector('.seconds');
     
     function updateClock() {
+    
     var t = getTimeRemaining(endtime);
     
     mSpan.innerHTML = ('0' + t.minutes).slice(-2);
@@ -188,7 +200,7 @@ function recolour(colour){
 
     function startQuiz(){
       console.log('IN startQuiz')
-    initializeClock('box', new Date(Date.parse(new Date()) + qTime()*1000));
+      initializeClock('box', new Date(Date.parse(new Date()) + qTime()*1000));
       quiz.style.display = "block";
       renderCounter();
       TIMER = setInterval(renderCounter,1000);
@@ -196,10 +208,19 @@ function recolour(colour){
   
 
   function renderCounter(){
+    
     if(count <= qTime())
-        count++;
+    {
+      count++;
+      console.log('count is',count)
+    }        
     else{
-      nextQuestion();
+      count=0;
+      //nextQuestion();
+      recolour(colorA);
+   recolour(colorB);
+   recolour(colorC);
+   recolour(colorD);
     }
 }
 
@@ -207,11 +228,12 @@ let cardTransitionTime = 1000;
 let $card = $('.js-card');
 
 function nextQuestion(){
+  console.log('In next question')
   count = 0;
-  recolour(colorA);
-  recolour(colorB);
-    recolour(colorC);
-    recolour(colorD);
+   recolour(colorA);
+   recolour(colorB);
+   recolour(colorC);
+   recolour(colorD);
   
            
             $card.addClass('js-card is-switched');
@@ -219,7 +241,7 @@ function nextQuestion(){
               $card.removeClass('js-card is-switched');
               }, cardTransitionTime);
             
-            clearInterval(timeinterval);
-            initializeClock('box', new Date(Date.parse(new Date()) + qTime()*1000));
-        
+             //clearInterval(timeinterval);
+             //initializeClock('box', new Date(Date.parse(new Date()) + qTime()*1000));
+             // renderCounter()
 }

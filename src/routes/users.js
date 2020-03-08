@@ -71,6 +71,7 @@ router.get('/logout',(req,res)=>
 })
 
 router.get('/game',ensureAuthenticated, async (req,res)=>{
+
     var array=req.user.q_array
     var array_numbers=[]
     var qno=req.user.qno
@@ -170,6 +171,7 @@ router.post('/game',async (req,res)=>{
     if(req.body.answer==req.user.q_array[index].correctAns)
     {
         console.log('correct answer')
+
     }
     else
     {
