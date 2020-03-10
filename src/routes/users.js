@@ -16,6 +16,10 @@ router.get('/login',forwardAuthenticated,(req,res)=>{
     res.render('login')
 })
 
+router.get('/cong',forwardAuthenticated,(req,res)=>{
+    res.render('/cong',{score:req.user.score})
+})
+
 router.get('/instructions',ensureAuthenticated,(req,res)=>{
     res.render('instructions')
 })
@@ -169,8 +173,14 @@ router.post('/game',async (req,res)=>{
     console.log(req.user.q_array[index].correctAns)
     console.log(req.body.answer)
     if(req.body.answer==req.user.q_array[index].correctAns)
-    {
+    {   
+        req.user.score=req.user.score+5
         console.log('correct answer')
+        if(req.user.qno==14)
+        {
+            res.redirect('/cong')
+            return
+        }
 
     }
     else
@@ -180,7 +190,7 @@ router.post('/game',async (req,res)=>{
     req.user.qno=req.user.qno+1
     await req.user.save()
     console.log(req.user.qno)
-
+    res.send()
     
 
 })
