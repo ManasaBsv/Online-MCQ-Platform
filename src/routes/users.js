@@ -26,7 +26,7 @@ router.get('/instructions',ensureAuthenticated,(req,res)=>{
 
 router.get('/time',ensureAuthenticated,(req,res)=>{
     var num=req.user.qno
-    var time=10000
+    var time=10
     if(num>4 && num<=9)
     {
         time=15
@@ -176,16 +176,17 @@ router.post('/game',async (req,res)=>{
     {   
         req.user.score=req.user.score+5
         console.log('correct answer')
-        if(req.user.qno==14)
-        {
-            res.redirect('/cong')
-            return
-        }
+        
 
     }
     else
     {
         console.log('wrong answer')
+    }
+    if(req.user.qno==14)
+    {   
+            res.redirect('/cong')
+            return
     }
     req.user.qno=req.user.qno+1
     await req.user.save()

@@ -12,16 +12,17 @@ if (document.location.search.match(/type=embed/gi)) {
   })
 
 
+  let flag=0
 
   function display()
   {   console.log('inside display')
-      var answer='optionA'
-      const A1=document.getElementById('optionA')
+      var answer='option'
+    
       
   const A= document.getElementById('optionA').checked
   const B= document.getElementById('optionB').checked
   const C= document.getElementById('optionC').checked
-  
+  const D= document.getElementById('optionD').checked
 
 
   if(B)
@@ -32,6 +33,15 @@ if (document.location.search.match(/type=embed/gi)) {
   {
       answer='optionC'
   }
+  else if(D)
+  {
+     answer='optionD'
+  }
+  else if(A)
+  {
+    answer='optionA'
+  }
+
   
   console.log('in javascript')
   console.log('A is', A) 
@@ -61,12 +71,14 @@ if (document.location.search.match(/type=embed/gi)) {
      console.log('In render function')
       var set= document.getElementById('set')
       set.innerHTML=result
+    
 
+      
       initializeClock('box', new Date(Date.parse(new Date()) + qTime()*1000));
       quiz.style.display = "block";
       renderCounter();
       //TIMER = setInterval(renderCounter,1000);   
-
+         
       setTimeout(display,10000)
   }
 
@@ -110,17 +122,14 @@ var deadline = new Date(Date.parse(new Date()) + 10000);
 var timeinterval;
 let TIMER;
 
+
 function qTime()
 {   
-    var time=9
     
-    // fetch('/time').then((response)=>{
-
-    //     response.json().then((data)=>{
-    //         time=data.time
-    //     })
-    // })
-    return time;
+    //var time=9
+    
+    
+    return 9;
 }
 
 function getTimeRemaining(endtime) {

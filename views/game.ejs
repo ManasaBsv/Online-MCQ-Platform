@@ -76,8 +76,9 @@
     </div>
   </div>
     </div>
-  
-  <button type="submit" id="button" class="button" onclick="nextQuestion()">NEXT</button>
+  <form id="next">
+  <button type="submit" id="button" class="button" >NEXT</button>
+  </form>
   
   <div id="quiz" style="display: none"></div>
   <div id="progress"></div>
@@ -86,65 +87,7 @@
   <div id='stars2'></div>
   <div id='stars3'></div>
   <script src="js/mcq.js"></script>
-  <!-- <script >
-    const min=document.getElementById('minutes')
-    const sec=document.getElementById('seconds')
-      $(document).ready( function() {
-          
-          setTimeout(display,10000)
-        })
-      
-     
-
-        function display()
-        {   console.log('inside display')
-            var answer='optionA'
-            const A1=document.getElementById('optionA')
-            
-        const A= document.getElementById('optionA').checked
-        const B= document.getElementById('optionB').checked
-        const C= document.getElementById('optionC').checked
-        
-
-
-        if(B)
-        {
-            answer='optionB'
-        }
-        else if(C)
-        {
-            answer='optionC'
-        }
-        
-        console.log('in javascript')
-        console.log('A is', A) 
-        console.log('B is',B)
-        console.log('C is',C)
-        console.log(answer)
-
-        
-        $.post('/game',{answer:answer})
-        $.ajax({
-            url:"/game",
-            type:"GET",
-        }).done(function (result){
-            console.log(result)
-            renderFunction(result)
-        }).fail(function(err){
-            console.log(err)
-        })
-        //renderQuestion()
-         
-        }
-        var renderFunction = function(result){
-            var set= document.getElementById('set')
-            set.innerHTML=result
-               
-            setTimeout(display,10000)
-        }
-
-  </script> -->
-
+ 
 </body>
 
 </body>
